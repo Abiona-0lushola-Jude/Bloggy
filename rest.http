@@ -1,0 +1,12 @@
+GET  http://localhost:5001/get/todo
+
+
+###
+GET  http://localhost:5001/blog
+
+###
+GET http://localhost:5001/oneBlog/How i spend my day
+
+
+###
+GET  http://localhost:5001/news
