@@ -5,6 +5,10 @@ const todoScheme = new mongoose.Schema({
         type:String,
         required:true
     },
+    checked:{
+        type:Boolean,
+        default:false
+    },
     createdAt:{
         type:Date,
         default:new Date,

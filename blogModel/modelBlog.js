@@ -12,6 +12,12 @@ const blogScheme = new mongoose.Schema({
         type:String,
         required:true
     },
+    img:{
+        data: Buffer,
+        contentType: String,
+        default:"https://www.internationalmarbella.com/wp-content/uploads/2020/07/Blog-1280x721.jpg",
+        type:String
+    },
     createdAt:{
         type:Date,
         default:new Date,

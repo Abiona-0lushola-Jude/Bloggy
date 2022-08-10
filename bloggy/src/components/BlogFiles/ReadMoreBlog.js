@@ -2,12 +2,15 @@ import React, {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import ReactMarkdown from 'react-markdown'
 
 const ReadMoreBlog = () => {
     const navigate = useNavigate()
     const params= useParams('blogId')
     const paramsValue = params.blogId
 
+
+    console.log(paramsValue)
 
     const [blog, setBlog] = useState([])
     useEffect(()=>{
@@ -16,28 +19,26 @@ const ReadMoreBlog = () => {
       .catch(err => console.log(err))
     },[paramsValue])
     
-
+console.log(blog)
   return (
     <div className='read-more'>
-      {blog.map(data=>{
-        return(
-            <div className="blog-container" key={data.title}>
+            <div className="blog-container" key={blog.title}>
               <div className="readMore-img">
-
+                  <img src={blog.img} alt="blog single picture" />
               </div>
               <div className="blog-content">
-                <h1 className='readMore-title'>{data.title}</h1>
-                <h4 className='desc'>{data.desc}</h4>
+                <h1 className='readMore-title'>{blog.title}</h1>
+                <h4 className='desc'>{blog.desc}</h4>
                 <div className="btn">
                     <button onClick={()=> navigate(-1)}>Cancel</button>
                     <button onClick={()=> navigate(`edit`)}>Edit</button>
                 </div>
-                <p className='markdown'>{data.markdown}</p>
+                <div className='markdown'>
+                  <ReactMarkdown>{blog.markdown}</ReactMarkdown>
+                  </div>
               </div>
                 
             </div>
-        )
-      })}
     </div>
   )
 }
