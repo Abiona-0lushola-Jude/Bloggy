@@ -5,8 +5,17 @@ GET  http://localhost:5001/get/todo
 GET  http://localhost:5001/blog
 
 ###
-GET http://localhost:5001/oneBlog/How i spend my day
+GET http://localhost:5001/oneBlog/62f333fabf601886ba4569d0
 
 
 ###
 GET  http://localhost:5001/news
+
+
+###
+POST   http://localhost:5001/post/todo
+Content-Type: application/json
+
+{
+    "title":"Calling my Dad"
+}

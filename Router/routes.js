@@ -4,86 +4,77 @@ const Blog = require('../blogModel/modelBlog')
 const Todo = require('../todoModel/modelTodo')
 const axios = require('axios')
 const cheerio = require('cheerio')
-
-const todo = ([
-    {
-        title:"Visit Granny",
-        createdAt:new Date(),
-    },
-    {
-        title:"Start Driving",
-        createdAt:new Date(),
-    },
-    {
-        title:"Start Internship",
-        createdAt:new Date(),
-    },
-    {
-        title:"Book Flight",
-        createdAt:new Date(),
-    },
-])
-
-
-
+const e = require('express')
 
 router.get('/get/todo', async(req,res)=>{
     try {
-        const allTodo = await todo
+        const allTodo = await Todo.find().sort({createdAt: 'desc'})
         res.status(200).json(allTodo)
+
     } catch (err) {
         res.status(500).json({message: err.message})
     }
 })
 
-const blog = [
-    {
-        title:'How i spend my day',
-        desc:'A details of how i have spent my day as a student learing dev',
-        markdown:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam at reprehenderit veritatis temporibus reiciendis deserunt, sed porro dignissimos, consequatur in enim maiores. Consequatur odit pariatur harum facilis cum voluptas dicta, voluptatem dolorum facere accusamus quod! Quisquam, accusantium a delectus minus molestiae commodi exercitationem illo eligendi tenetur, excepturi doloremque sit numquam possimus soluta quibusdam? Libero enim consectetur minima, facere fuga non iste suscipit officiis, eos ea beatae! Tempora ab at eum?',
-    },
-    {
-        title:'My first interview',
-        desc:'Sharing how my interview went and question entry-level should look out for',
-        markdown:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam at reprehenderit veritatis temporibus reiciendis deserunt, sed porro dignissimos, consequatur in enim maiores. Consequatur odit pariatur harum facilis cum voluptas dicta, voluptatem dolorum facere accusamus quod! Quisquam, accusantium a delectus minus molestiae commodi exercitationem illo eligendi tenetur, excepturi doloremque sit numquam possimus soluta quibusdam? Libero enim consectetur minima, facere fuga non iste suscipit officiis, eos ea beatae! Tempora ab at eum?',
-    },
-    {
-        title:'A day at Google',
-        desc:'My experience at Google (Lorem ipsum dolo Quam at reprehenderit veritatis temporibus reiciendis deserunt,)',
-        markdown:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam at reprehenderit veritatis temporibus reiciendis deserunt, sed porro dignissimos, consequatur in enim maiores. Consequatur odit pariatur harum facilis cum voluptas dicta, voluptatem dolorum facere accusamus quod! Quisquam, accusantium a delectus minus molestiae commodi exercitationem illo eligendi tenetur, excepturi doloremque sit numquam possimus soluta quibusdam? Libero enim consectetur minima, facere fuga non iste suscipit officiis, eos ea beatae! Tempora ab at eum?',
-    },
-    {
-        title:'Tips from senior dev to juniors',
-        desc:'Tips shared by senior devs to junior dev that improve them over time',
-        markdown:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam at reprehenderit veritatis temporibus reiciendis deserunt, sed porro dignissimos, consequatur in enim maiores. Consequatur odit pariatur harum facilis cum voluptas dicta, voluptatem dolorum facere accusamus quod! Quisquam, accusantium a delectus minus molestiae commodi exercitationem illo eligendi tenetur, excepturi doloremque sit numquam possimus soluta quibusdam? Libero enim consectetur minima, facere fuga non iste suscipit officiis, eos ea beatae! Tempora ab at eum?',
-    },
-    {
-        title:'Tips for interviews',
-        desc:'Tips shared by senior devs to junior dev that improve them over time',
-        markdown:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam at reprehenderit veritatis temporibus reiciendis deserunt, sed porro dignissimos, consequatur in enim maiores. Consequatur odit pariatur harum facilis cum voluptas dicta, voluptatem dolorum facere accusamus quod! Quisquam, accusantium a delectus minus molestiae commodi exercitationem illo eligendi tenetur, excepturi doloremque sit numquam possimus soluta quibusdam? Libero enim consectetur minima, facere fuga non iste suscipit officiis, eos ea beatae! Tempora ab at eum?',
-    },
-]
 
 
+// Getting All Blog
 router.get('/blog', async (req,res)=>{
     try {
-        const allBlog = await blog
+        const allBlog = await Blog.find().sort({createdAt: 'desc'})
         res.status(200).json(allBlog)
     } catch (err) {
         res.status(500).json({message: err.message})
     }
 })
 
+
+
+
+// Getting One Blog
 router.get('/oneBlog/:id', async (req,res)=>{
     const dataId = req.params.id
-    const FilteredBlog = blog.filter(data => data.title === dataId)
     try {
-        const realBlog = await FilteredBlog
-        res.status(200).json(realBlog)
+        const oneBlog = await Blog.findById(dataId)
+        res.status(200).json(oneBlog)
     } catch (err) {
-        res.status(404).json({message: err.message})
+        res.status(500).json({message: err.message})
     }
 })
+
+// Deleting One Blog Post
+
+router.delete('/blog/delete/:id', async(req,res)=>{
+    const dataId = req.params.id
+    try {
+        await Blog.findByIdAndDelete(dataId)
+        res.status(200).json({message: `Blog with ID ${dataId} has been successfully deleted`})
+    } catch (err) {
+        res.status(500).json({message: err.message})
+    }
+})
+
+
+
+// Posting Blog
+router.post('/blog/post', async (req,res)=>{
+    const newBlog = new Blog({
+        title: req.body.title,
+        desc: req.body.desc,
+        markdown: req.body.markdown,
+        img: req.body.img
+    })
+    try {
+        const newBlogDone = await newBlog.save()
+        res.status(200).json(newBlogDone)
+    } catch (err) {
+        res.status(500).json({message: err.message})
+    }
+})
+
+
+
+// Scrapping the Newspapaer Page
 const articles = []
 const address = "https://www.theguardian.com/uk/film"
 
@@ -110,4 +101,33 @@ router.get('/news',async (req,res)=>{
         res.json({err: err.message})
     }
 })
+
+
+
+// posting todo
+router.post('/post/todo', async (req,res)=>{
+    const newTodo = new Todo({
+        title:req.body.title,
+    })
+   try {
+        const newTodoList = await newTodo.save()
+        res.status(200).json(newTodoList)
+   } catch (err) {
+        res.status(500).json({message: err.message})
+   }
+})
+
+
+
+// Deleting a todo
+router.delete('/todo/delete/:id', async (req,res)=>{
+    try {
+      await Todo.findByIdAndDelete(req.params.id)
+      res.json({message: `List Id ${req.params.id} has been deleted`})
+    } catch (err) {
+        res.status(500).json({message:err.message})
+    }
+})
+
+
 module.exports = router

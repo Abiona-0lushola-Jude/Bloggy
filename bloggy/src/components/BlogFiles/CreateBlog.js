@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../../components/form.css'
 import FileBase64 from 'react-filebase64';
+import axios from 'axios';
 
 
 const CreateBlog = () => {
@@ -26,7 +27,13 @@ const CreateBlog = () => {
 
   function handleSubmit(event){
     event.preventDefault()
-    console.table(form);
+    
+    axios.post('http://localhost:5001/blog/post', form)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+
+    navigate('/')
+    window.location.reload()
   }
   return (
     <div className='form-container'>

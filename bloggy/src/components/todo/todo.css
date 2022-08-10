@@ -19,6 +19,9 @@ input{
     color:beige;
     border-color: white;
 }
+.svg{
+    width: 1.4rem;
+}
 @media screen and (max-width:427px) {
     .todo-container,
     .checked{
