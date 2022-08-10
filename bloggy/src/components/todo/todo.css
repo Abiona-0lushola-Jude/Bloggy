@@ -22,9 +22,15 @@ input{
 .svg{
     width: 1.4rem;
 }
+.todo-text{
+    width: 75%;
+}
 @media screen and (max-width:427px) {
     .todo-container,
     .checked{
         width: 100%;
+    }
+    .todo-text{
+        width: 67%;
     }
 }

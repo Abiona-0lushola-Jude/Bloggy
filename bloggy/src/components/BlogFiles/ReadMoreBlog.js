@@ -19,12 +19,12 @@ const ReadMoreBlog = () => {
       .catch(err => console.log(err))
     },[paramsValue])
     
-console.log(blog)
+// console.log(blog)
   return (
     <div className='read-more'>
             <div className="blog-container" key={blog.title}>
               <div className="readMore-img">
-                  <img src={blog.img} alt="blog single picture" />
+                  <img src={blog.img ? blog.img : `https://th.bing.com/th/id/OIP.TopGZCyfzM4yXcafYChk1wHaF7?pid=ImgDet&rs=1`} alt={`${blog.title} blog`} />
               </div>
               <div className="blog-content">
                 <h1 className='readMore-title'>{blog.title}</h1>
