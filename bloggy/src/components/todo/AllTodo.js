@@ -11,7 +11,7 @@ const AllTodo = ({data, todo, hnandleDelete}) => {
 
   return (
     <div className={checked ? 'checked' : 'todo-container'}>
-      <p className='todo-text'>{todo.title}</p>
+      <p>{todo.title}</p>
       <input 
       type="checkbox" 
       name="check"

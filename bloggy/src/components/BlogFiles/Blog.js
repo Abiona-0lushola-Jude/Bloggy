@@ -19,10 +19,14 @@ const Blog = ({Data}) => {
       window.location.reload()
     }
 
+
+
+
+console.log(Data)
   return (
     <div className='allData-container'>
       <div className="image-container">
-        <img src={Data.img ? Data.img : `https://th.bing.com/th/id/OIP.TopGZCyfzM4yXcafYChk1wHaF7?pid=ImgDet&rs=1`} alt={`${Data.title} blog`}/>
+        <img src={Data.img} alt="blog inputted pixels" />
       </div>
       <div className="Oneblog-container">
           <h2 className='title'>{Data.title}</h2>

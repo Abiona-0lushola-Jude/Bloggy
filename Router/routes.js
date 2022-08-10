@@ -55,6 +55,8 @@ router.delete('/blog/delete/:id', async(req,res)=>{
 })
 
 
+
+// Posting Blog
 router.post('/blog/post', async (req,res)=>{
     const newBlog = new Blog({
         title: req.body.title,

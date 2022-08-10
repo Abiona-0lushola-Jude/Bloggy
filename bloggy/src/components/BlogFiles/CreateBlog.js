@@ -64,7 +64,7 @@ const CreateBlog = () => {
            />
            <FileBase64
             multiple={ false }
-            onDone={({base64})=> setForm(prevState=> ({...prevState, img:base64})) } 
+            onDone={({base64})=> setForm(prevState=> ({... prevState, img:base64})) } 
             />
            <div className="btn">
             <button onClick={() => navigate('/') }>Cancel</button>
