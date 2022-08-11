@@ -19,12 +19,7 @@ const EditBlog = () => {
     img:''
   })
 
-  const [upadteBlog , setUpadatedBlog] = useState({
-    title:"",
-    desc:"",
-    markdown:"",
-    img:''
-  })
+ 
 
   useEffect(()=>{
     axios.get(`http://localhost:5001/oneBlog/${paramValue}`)
@@ -36,18 +31,24 @@ const EditBlog = () => {
   function handleSubmit(event){
     event.preventDefault()
 
-    console.table(upadteBlog)
+    axios.patch(`http://localhost:5001/blog/update/${prevBlog._id}`, prevBlog)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
   }
 
   function handleChange(event){
-    const {name, value} = event.target
-    setUpadatedBlog(prevStata=>{
-      return{
-        ...prevStata,
-        [name]: value
-      }
-    })
+      const {name, value} = event.target
+
+      setPrevBlog(prevState=>{
+        return{
+          ...prevState,
+          [name]:value
+        }
+      })
   }
+
+
+
 
   return (
     <div className='form-container'>
@@ -58,7 +59,7 @@ const EditBlog = () => {
           name="title" 
           id="title" 
           placeholder='Enter Title'
-          value={upadteBlog.title}
+          value={prevBlog.title}
           onChange={handleChange}
            />
           <label htmlFor="desc">Description: </label>
@@ -66,19 +67,19 @@ const EditBlog = () => {
           name="desc" 
           id="desc" 
           placeholder='Enter Description'
-          value={upadteBlog.desc}
+          value={prevBlog.desc}
           onChange={handleChange}
            />
            <label htmlFor="markdown">Edit your Blog:  </label>
            <textarea 
            name="markdown" 
            id="markdown" 
-           value={upadteBlog.markdown}
+           value={prevBlog.markdown}
            onChange={handleChange}
            />
            <FileBase64
            mutiple={false}
-           onDone={({base64})=> setUpadatedBlog(prevState=> ({...prevState, img:base64}))}
+           onDone={({base64})=> setPrevBlog(prevState=> ({...prevState, img:base64}))}
            />
            <div className="btn">
             <button onClick={() => navigate(`/bloggy/${paramValue}`)}>Cancel</button>

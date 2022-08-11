@@ -2,12 +2,14 @@ import React, {useState} from 'react'
 import './todo.css'
 
 const AllTodo = ({data, todo, hnandleDelete}) => {
+
   const [checked, setChecked] = useState(todo.checked)
 
     
   function handleChange(){
     setChecked(prev=> !prev)
   }
+
 
   return (
     <div className={checked ? 'checked' : 'todo-container'}>

@@ -128,4 +128,19 @@ router.delete('/todo/delete/:id', async (req,res)=>{
 })
 
 
+// updating  a blog
+router.patch('/blog/update/:id', (req,res)=>{
+   const updatedBlog = ({
+    title: req.body.title,
+    desc: req.body.desc,
+    markdown: req.body.markdown,
+    img: req.body.img
+   })
+   try {
+    updatedBlog = Blog.findByIdAndUpdate()
+   } catch (err) {
+    
+   }
+})
+
 module.exports = router
