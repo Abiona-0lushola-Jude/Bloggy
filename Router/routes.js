@@ -129,18 +129,22 @@ router.delete('/todo/delete/:id', async (req,res)=>{
 
 
 // updating  a blog
-router.patch('/blog/update/:id', (req,res)=>{
-   const updatedBlog = ({
-    title: req.body.title,
-    desc: req.body.desc,
-    markdown: req.body.markdown,
-    img: req.body.img
-   })
-   try {
-    updatedBlog = Blog.findByIdAndUpdate()
-   } catch (err) {
-    
-   }
+router.put('/blog/update/:id', (req,res)=>{
+ Blog.findByIdAndUpdate(req.params.id, { 
+        title: req.body.title,
+        desc: req.body.desc,
+        markdown: req.body.markdown,
+        img: req.body.img
+    },
+   function (err, docs) {
+if (err){
+console.log(err)
+}
+else{
+console.log(docs)
+}
+});
+
 })
 
 module.exports = router

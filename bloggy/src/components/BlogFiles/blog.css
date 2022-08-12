@@ -21,6 +21,9 @@
     width: 20rem;
     height: 10rem;
 }
+p{
+    margin-block: 0.5rem;
+}
 .blog-container{
     margin-left: 11rem;
     margin-block: 2rem;

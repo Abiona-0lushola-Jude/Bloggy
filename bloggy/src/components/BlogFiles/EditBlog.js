@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import FileBase64 from 'react-filebase64';
 
 
+
 const EditBlog = () => {
   const param = useParams('blogId')
   const paramValue = param.blogId
@@ -31,9 +32,13 @@ const EditBlog = () => {
   function handleSubmit(event){
     event.preventDefault()
 
-    axios.patch(`http://localhost:5001/blog/update/${prevBlog._id}`, prevBlog)
+    axios.put(`http://localhost:5001/blog/update/${prevBlog._id}`, prevBlog)
     .then(res => console.log(res))
     .catch(err => console.log(err))
+
+
+
+    window.location.assign('/')
   }
 
   function handleChange(event){

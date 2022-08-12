@@ -12,6 +12,8 @@ const AllBlog = () => {
     .catch(err => console.log(err))
  }, [])
 
+
+//  console.log(allData)
   return (
     <section className="AllBlog-container">
       <h1>{`<Bloggy />`}</h1>
