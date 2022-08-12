@@ -11,7 +11,7 @@ const Todo = () => {
   })
 
   function HnandleDelete(event){
-      axios.delete(`http://localhost:5001/todo/delete/${event}`)
+      axios.delete(`https://boiling-sea-59873.herokuapp.com/todo/delete/${event}`)
       .then(res => console.log(res))
       .catch(err => console.log(err))
 
@@ -21,7 +21,7 @@ const Todo = () => {
 
   function handleSubmit (event){
         event.preventDefault()
-        axios.post('http://localhost:5001/post/todo', todoForm)
+        axios.post('https://boiling-sea-59873.herokuapp.com/post/todo', todoForm)
         .then(res => console.log(res))
         .catch(err => console.log(err))
 

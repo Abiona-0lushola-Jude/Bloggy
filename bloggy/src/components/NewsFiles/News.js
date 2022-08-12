@@ -8,7 +8,7 @@ import OneNews from './OneNews'
 const News = () => {
   const [news, setNews] = useState([])
   useEffect(()=>{
-    axios.get('http://localhost:5001/news')
+    axios.get('https://boiling-sea-59873.herokuapp.com/news')
     .then(res => setNews(res.data))
     .catch(err => console.log(err))
   }, [])

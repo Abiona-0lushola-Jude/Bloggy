@@ -28,7 +28,7 @@ const CreateBlog = () => {
   function handleSubmit(event){
     event.preventDefault()
     
-    axios.post('http://localhost:5001/blog/post', form)
+    axios.post('https://boiling-sea-59873.herokuapp.com/blog/post', form)
     .then(res => console.log(res))
     .catch(err => console.log(err))
 

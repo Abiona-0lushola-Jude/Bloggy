@@ -23,7 +23,7 @@ const EditBlog = () => {
  
 
   useEffect(()=>{
-    axios.get(`http://localhost:5001/oneBlog/${paramValue}`)
+    axios.get(`https://boiling-sea-59873.herokuapp.com/oneBlog/${paramValue}`)
   .then(res => setPrevBlog(res.data))
   .catch(err => console.log(err))
     },[paramValue])
@@ -32,7 +32,7 @@ const EditBlog = () => {
   function handleSubmit(event){
     event.preventDefault()
 
-    axios.put(`http://localhost:5001/blog/update/${prevBlog._id}`, prevBlog)
+    axios.put(`https://boiling-sea-59873.herokuapp.com/blog/update/${prevBlog._id}`, prevBlog)
     .then(res => console.log(res))
     .catch(err => console.log(err))
 

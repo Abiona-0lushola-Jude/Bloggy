@@ -12,7 +12,7 @@ const ReadMoreBlog = () => {
 
     const [blog, setBlog] = useState([])
     useEffect(()=>{
-        axios.get(`http://localhost:5001/oneBlog/${paramsValue}`)
+        axios.get(`https://boiling-sea-59873.herokuapp.com/oneBlog/${paramsValue}`)
       .then(res => setBlog(res.data))
       .catch(err => console.log(err))
     },[paramsValue])

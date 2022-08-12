@@ -11,7 +11,7 @@ const Blog = ({Data}) => {
     }
 
     function handleDelete(event){
-      axios.delete(`http://localhost:5001/blog/delete/${event}`)
+      axios.delete(`https://boiling-sea-59873.herokuapp.com/blog/delete/${event}`)
       .then(res => console.log(res))
       .catch(err => console.log(err))
 

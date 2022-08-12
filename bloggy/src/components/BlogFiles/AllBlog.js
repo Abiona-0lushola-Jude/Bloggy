@@ -7,7 +7,7 @@ const AllBlog = () => {
   const [allData, setAllData] = useState([])
 
  useEffect(()=>{
-    axios.get('http://localhost:5001/blog')
+    axios.get('https://boiling-sea-59873.herokuapp.com/blog')
     .then(res => setAllData(res.data))
     .catch(err => console.log(err))
  }, [])

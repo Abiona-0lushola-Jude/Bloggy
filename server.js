@@ -28,5 +28,12 @@ mongoose.connect(blogConnection,()=>{
     console.log("Conncted to Database")
 })
 
+
+if(process.env.NODE_ENV === "production"){
+    app.use(express.static("bloggy/build"))
+    app.get("*", (req,res)=>{
+        res.sendFile(path.resolve(__dirname, "bloggy", "build", "index.html"))
+    })
+}
 // Connecting t0 PORT
 app.listen(PORT, ()=> console.log(`The Server is now Running at Port ${PORT}`))
